@@ -1,415 +1,230 @@
-// =====================================
-// Portfolio Version 4
-// Part 1/4
-// =====================================
+// ===============================
+// LOADER
+// ===============================
 
-// Loader
 window.addEventListener("load", () => {
 
-setTimeout(() => {
+    const loader = document.getElementById("loader");
 
-document.getElementById("loader").classList.add("hide");
-
-}, 2000);
+    if (loader) {
+        loader.style.display = "none";
+    }
 
 });
 
-// Typing Animation
+// ===============================
+// BACK TO TOP BUTTON
+// ===============================
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+
+    if (!topBtn) return;
+
+    if (window.scrollY > 300) {
+        topBtn.style.display = "block";
+    } else {
+        topBtn.style.display = "none";
+    }
+
+});
+
+if (topBtn) {
+
+    topBtn.addEventListener("click", () => {
+
+        window.scrollTo({
+
+            top: 0,
+            behavior: "smooth"
+
+        });
+
+    });
+
+}
+
+// ===============================
+// SCROLL PROGRESS BAR
+// ===============================
+
+const progress = document.getElementById("scroll-progress");
+
+window.addEventListener("scroll", () => {
+
+    if (!progress) return;
+
+    const scrollTop = document.documentElement.scrollTop;
+
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const percent = (scrollTop / scrollHeight) * 100;
+
+    progress.style.width = percent + "%";
+
+});
+// ===============================
+// DARK MODE
+// ===============================
+
+const darkModeBtn = document.getElementById("darkMode");
+
+if (darkModeBtn) {
+
+    darkModeBtn.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark");
+
+        const icon = darkModeBtn.querySelector("i");
+
+        if (icon) {
+
+            if (document.body.classList.contains("dark")) {
+                icon.classList.remove("fa-moon");
+                icon.classList.add("fa-sun");
+            } else {
+                icon.classList.remove("fa-sun");
+                icon.classList.add("fa-moon");
+            }
+
+        }
+
+    });
+
+}
+
+// ===============================
+// MOBILE MENU
+// ===============================
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.querySelector(".nav-links");
+
+if (menuBtn && navLinks) {
+
+    menuBtn.addEventListener("click", () => {
+
+        navLinks.classList.toggle("active");
+
+    });
+
+}
+
+// ===============================
+// TYPING EFFECT
+// ===============================
 
 const typing = document.getElementById("typing");
 
 const words = [
-
-"Front-End Developer",
-
-"BCA Student",
-
-"JavaScript Learner",
-
-"Python Learner"
-
+    "BCA Student",
+    "Front-End Developer",
+    "Python Learner",
+    "Future Full Stack Developer"
 ];
 
 let wordIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 
-function typeEffect(){
+function typeEffect() {
 
-const currentWord = words[wordIndex];
+    if (!typing) return;
 
-if(!isDeleting){
+    const currentWord = words[wordIndex];
 
-typing.textContent = currentWord.substring(0,charIndex++);
+    if (!isDeleting) {
 
-if(charIndex > currentWord.length){
+        typing.textContent = currentWord.substring(0, charIndex++);
 
-isDeleting = true;
+        if (charIndex > currentWord.length) {
 
-setTimeout(typeEffect,1200);
+            isDeleting = true;
 
-return;
+            setTimeout(typeEffect, 1500);
 
-}
+            return;
 
-}else{
+        }
 
-typing.textContent = currentWord.substring(0,charIndex--);
+    } else {
 
-if(charIndex < 0){
+        typing.textContent = currentWord.substring(0, charIndex--);
 
-isDeleting = false;
+        if (charIndex < 0) {
 
-wordIndex++;
+            isDeleting = false;
 
-if(wordIndex >= words.length){
+            wordIndex = (wordIndex + 1) % words.length;
 
-wordIndex = 0;
+        }
 
-}
+    }
 
-}
-
-}
-
-setTimeout(typeEffect,isDeleting ? 50 : 100);
+    setTimeout(typeEffect, isDeleting ? 60 : 120);
 
 }
 
 typeEffect();
+// ===============================
+// CLOSE MOBILE MENU AFTER CLICK
+// ===============================
 
-// Dark Mode
+const navItems = document.querySelectorAll(".nav-links a");
 
-const darkBtn = document.getElementById("darkMode");
+navItems.forEach(link => {
 
-if(localStorage.getItem("theme") === "light"){
+    link.addEventListener("click", () => {
 
-document.body.classList.add("light");
+        if (navLinks) {
+            navLinks.classList.remove("active");
+        }
 
-darkBtn.innerHTML = "☀️";
+    });
+
+});
+
+// ===============================
+// SIMPLE SCROLL ANIMATION
+// ===============================
+
+const sections = document.querySelectorAll("section");
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+}, {
+    threshold: 0.2
+});
+
+sections.forEach(section => {
+    observer.observe(section);
+});
+
+// ===============================
+// CURRENT YEAR IN FOOTER (Optional)
+// ===============================
+
+const year = new Date().getFullYear();
+
+const footer = document.querySelector("footer p");
+
+if (footer) {
+
+    footer.innerHTML = `© ${year} Ramudgar Gupta. All Rights Reserved.`;
 
 }
 
-darkBtn.onclick = () => {
-
-document.body.classList.toggle("light");
-
-if(document.body.classList.contains("light")){
-
-localStorage.setItem("theme","light");
-
-darkBtn.innerHTML = "☀️";
-
-}else{
-
-localStorage.setItem("theme","dark");
-
-darkBtn.innerHTML = "🌙";
-
-}
-
-};
-// =====================================
-// Portfolio Version 4
-// Part 2/4
-// =====================================
-
-// Mobile Menu
-
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.querySelector(".nav-links");
-
-menuBtn.onclick = () => {
-
-navLinks.classList.toggle("active");
-
-if(navLinks.classList.contains("active")){
-
-menuBtn.innerHTML = "✖";
-
-}else{
-
-menuBtn.innerHTML = "☰";
-
-}
-
-};
-
-// Close Menu After Click
-
-document.querySelectorAll(".nav-links a").forEach(link=>{
-
-link.onclick = ()=>{
-
-navLinks.classList.remove("active");
-
-menuBtn.innerHTML="☰";
-
-};
-
-});
-
-// Scroll Animation
-
-const sections=document.querySelectorAll(
-
-".hero,.about,.skills,.projects,.certificates,.contact"
-
-);
-
-function revealSections(){
-
-sections.forEach(section=>{
-
-const top=section.getBoundingClientRect().top;
-
-if(top<window.innerHeight-100){
-
-section.classList.add("show");
-
-}
-
-});
-
-}
-
-window.addEventListener("scroll",revealSections);
-
-revealSections();
-
-// Back To Top
-
-const topBtn=document.getElementById("topBtn");
-
-topBtn.onclick=function(){
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-};
-// =====================================
-// Portfolio Version 4
-// Part 3/4
-// =====================================
-
-// ===============================
-// Scroll Progress Bar
-// ===============================
-
-const scrollBar = document.getElementById("scrollBar");
-
-window.addEventListener("scroll",()=>{
-
-const scrollTop =
-document.documentElement.scrollTop;
-
-const scrollHeight =
-document.documentElement.scrollHeight -
-document.documentElement.clientHeight;
-
-const percent =
-(scrollTop / scrollHeight) * 100;
-
-scrollBar.style.width = percent + "%";
-
-// Back To Top Button Show/Hide
-
-if(scrollTop > 300){
-
-topBtn.style.display = "block";
-
-}else{
-
-topBtn.style.display = "none";
-
-}
-
-});
-
-// ===============================
-// Project Search
-// ===============================
-
-const searchInput =
-document.getElementById("searchProject");
-
-const cards =
-document.querySelectorAll(".project-grid .card");
-
-if(searchInput){
-
-searchInput.addEventListener("keyup",()=>{
-
-let value =
-searchInput.value.toLowerCase();
-
-cards.forEach(card=>{
-
-let text =
-card.innerText.toLowerCase();
-
-if(text.includes(value)){
-
-card.style.display = "block";
-
-}else{
-
-card.style.display = "none";
-
-}
-
-});
-
-});
-
-}
-
-// ===============================
-// Smooth Anchor Scrolling
-// ===============================
-
-document.querySelectorAll('a[href^="#"]').forEach(link=>{
-
-link.addEventListener("click",function(e){
-
-e.preventDefault();
-
-const target =
-document.querySelector(this.getAttribute("href"));
-
-if(target){
-
-target.scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-}
-
-});
-
-});
-
-// ===============================
-// Active Navbar Link
-// ===============================
-
-const navItems =
-document.querySelectorAll(".nav-links a");
-
-window.addEventListener("scroll",()=>{
-
-let currentSection="";
-
-document.querySelectorAll("section").forEach(section=>{
-
-const top = section.offsetTop - 120;
-
-if(window.scrollY >= top){
-
-currentSection = section.getAttribute("id");
-
-}
-
-});
-
-navItems.forEach(link=>{
-
-link.classList.remove("active");
-
-if(link.getAttribute("href") === "#" + currentSection){
-
-link.classList.add("active");
-
-}
-
-});
-
-});
-// =====================================
-// Portfolio Version 4
-// Part 4/4 (Final)
-// =====================================
-
-// ===============================
-// Navbar Background on Scroll
-// ===============================
-
-const header = document.querySelector("header");
-
-window.addEventListener("scroll", () => {
-
-if(window.scrollY > 50){
-
-header.style.boxShadow = "0 5px 20px rgba(0,0,0,.3)";
-
-}else{
-
-header.style.boxShadow = "none";
-
-}
-
-});
-
-// ===============================
-// Button Ripple Effect
-// ===============================
-
-document.querySelectorAll(".btn").forEach(btn=>{
-
-btn.addEventListener("click",function(e){
-
-const circle = document.createElement("span");
-
-const size = Math.max(this.clientWidth,this.clientHeight);
-
-const rect = this.getBoundingClientRect();
-
-circle.style.width = size + "px";
-circle.style.height = size + "px";
-
-circle.style.left = (e.clientX - rect.left - size/2) + "px";
-circle.style.top = (e.clientY - rect.top - size/2) + "px";
-
-circle.classList.add("ripple");
-
-this.appendChild(circle);
-
-setTimeout(()=>{
-
-circle.remove();
-
-},600);
-
-});
-
-});
-
-// ===============================
-// Current Year in Footer
-// ===============================
-
-const footer = document.querySelector("footer");
-
-if(footer){
-
-footer.innerHTML =
-`© ${new Date().getFullYear()} Ramudgar Gupta | All Rights Reserved`;
-
-}
-
-// ===============================
-// Console Message
-// ===============================
-
-console.log("🚀 Portfolio Version 4 Loaded Successfully");
-
-// ===============================
-// End
-// ===============================
+console.log("Portfolio Version 5 Loaded Successfully ✅");
