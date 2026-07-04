@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professional To-Do List</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            background:white;
+            width:450px;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 20px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+
+        h1{
+            margin-bottom:20px;
+        }
+
+        input{
+            width:65%;
+            padding:10px;
+            font-size:18px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        .add{
+            padding:10px 20px;
+            font-size:18px;
+            background:green;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        .add:hover{
+            background:darkgreen;
+        }
+
+        ul{
+            list-style:none;
+            padding:0;
+            margin-top:20px;
+        }
+
+        li{
+            background:#f2f2f2;
+            margin:10px 0;
+            padding:12px;
+            border-radius:5px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            cursor:pointer;
+        }
+
+        .completed{
+            text-decoration:line-through;
+            color:gray;
+        }
+
+        .delete{
+            background:red;
+            color:white;
+            border:none;
+            padding:8px 12px;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        .delete:hover{
+            background:darkred;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📝 To-Do List</h1>
+
+    <input type="text" id="task" placeholder="Enter Task">
+
+    <button class="add" onclick="addTask()">Add</button>
+
+    <ul id="list"></ul>
+
+</div>
+
+<script>
+
+function addTask(){
+
+    let task = document.getElementById("task").value.trim();
+
+    if(task==""){
+        alert("Please Enter a Task");
+        return;
+    }
+
+    let li = document.createElement("li");
+
+    let span = document.createElement("span");
+    span.innerText = task;
+
+    // Complete / Incomplete
+    span.onclick = function(){
+        span.classList.toggle("completed");
+    };
+
+    let btn = document.createElement("button");
+    btn.innerText = "Delete";
+    btn.className = "delete";
+
+    btn.onclick = function(event){
+        event.stopPropagation();
+        li.remove();
+    };
+
+    li.appendChild(span);
+    li.appendChild(btn);
+
+    document.getElementById("list").appendChild(li);
+
+    document.getElementById("task").value="";
+}
+
+</script>
+
+</body>
+</html>
