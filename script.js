@@ -228,3 +228,58 @@ if (footer) {
 }
 
 console.log("Portfolio Version 5 Loaded Successfully ✅");
+// ======================================
+// PREMIUM NAVBAR (FIXED)
+// ======================================
+
+const navbar = document.querySelector(".navbar");
+
+// Navbar Shadow on Scroll
+
+window.addEventListener("scroll", () => {
+
+    if (navbar) {
+
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+
+    }
+
+});
+
+// Active Menu Highlight
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    document.querySelectorAll("section").forEach(section => {
+
+        const sectionTop = section.offsetTop - 120;
+        const sectionHeight = section.offsetHeight;
+
+        if (window.scrollY >= sectionTop &&
+            window.scrollY < sectionTop + sectionHeight) {
+
+            current = section.getAttribute("id");
+
+        }
+
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+});

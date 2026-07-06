@@ -1,80 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Digital Clock</title>
 
-    <style>
-        body{
-            margin:0;
-            background:linear-gradient(135deg,#000428,#004e92);
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            font-family:Arial,sans-serif;
-        }
+<meta charset="UTF-8">
 
-        .clock{
-            background:rgba(255,255,255,0.1);
-            padding:30px;
-            border-radius:20px;
-            text-align:center;
-            box-shadow:0 0 30px cyan;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        h1{
-            color:white;
-            margin-bottom:20px;
-        }
+<title>Digital Clock | Ramudgar Gupta</title>
 
-        #time{
-            font-size:55px;
-            font-weight:bold;
-            color:cyan;
-        }
+<link rel="stylesheet" href="clock.css">
 
-        #date{
-            font-size:22px;
-            color:white;
-            margin-top:15px;
-        }
-    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <div class="clock">
+<div class="container">
 
-        <h1>Digital Clock</h1>
+<h1>🕒 Digital Clock</h1>
 
-        <div id="time">00:00:00</div>
+<div class="clock">
 
-        <div id="date">Loading...</div>
+<h2 id="time">
+00:00:00
+</h2>
 
-    </div>
+<p id="date">
+Loading Date...
+</p>
 
-    <script>
+<p id="day">
+Loading Day...
+</p>
 
-        function updateClock(){
+</div>
 
-            let now = new Date();
+</div>
 
-            let time = now.toLocaleTimeString();
-
-            let date = now.toDateString();
-
-            document.getElementById("time").innerHTML = time;
-
-            document.getElementById("date").innerHTML = date;
-
-        }
-
-        setInterval(updateClock,1000);
-
-        updateClock();
-
-    </script>
+<script src="clock.js"></script>
 
 </body>
+
 </html>

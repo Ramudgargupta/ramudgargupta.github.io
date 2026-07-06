@@ -1,141 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Weather App</title>
 
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, sans-serif;
-            background:linear-gradient(135deg,#4facfe,#00f2fe);
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .box{
-            width:400px;
-            background:white;
-            padding:30px;
-            border-radius:20px;
-            text-align:center;
-            box-shadow:0 0 20px gray;
-        }
+<title>Weather App | Ramudgar Gupta</title>
 
-        h1{
-            margin-bottom:25px;
-        }
+<link rel="stylesheet" href="weather.css">
 
-        input{
-            width:220px;
-            padding:10px;
-            font-size:18px;
-            border:1px solid gray;
-            border-radius:5px;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-        button{
-            padding:10px 20px;
-            font-size:18px;
-            background:green;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-        }
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        button:hover{
-            background:darkgreen;
-        }
-
-        #weather{
-            margin-top:25px;
-            font-size:24px;
-            line-height:2;
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-    <h1>🌦 Weather App</h1>
+<h1>🌦 Weather App</h1>
 
-    <input type="text" id="city" placeholder="Enter City">
+<div class="search-box">
 
-    <button onclick="getWeather()">Search</button>
+<input
+type="text"
+id="city"
+placeholder="Enter City Name">
 
-    <div id="weather">
-
-        <p>🌡 Temperature : <span id="temp">--</span> °C</p>
-
-        <p>☁ Weather : <span id="status">--</span></p>
-
-        <p>💧 Humidity : <span id="humidity">--</span>%</p>
-
-        <p>💨 Wind : <span id="wind">--</span> km/h</p>
-
-    </div>
+<button onclick="getWeather()">
+Search
+</button>
 
 </div>
 
-<script>
+<div class="weather-card">
 
-const apiKey = "cb33a153568a915d482b7dec952fc101";
+<h2 id="cityName">City</h2>
 
-async function getWeather(){
+<img id="icon" src="" alt="">
 
-    let city = document.getElementById("city").value.trim();
+<h3 id="temp">--°C</h3>
 
-    if(city === ""){
-        alert("Please Enter City Name");
-        return;
-    }
+<p id="condition">Weather Condition</p>
 
-    let url =
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+<div class="details">
 
-    try{
+<div>
+💧
+<p id="humidity">--%</p>
+</div>
 
-        let response = await fetch(url);
+<div>
+🌬
+<p id="wind">-- km/h</p>
+</div>
 
-        let data = await response.json();
+</div>
 
-        console.log(data);
+</div>
 
-        if(!response.ok){
-            alert(data.message);
-            return;
-        }
+</div>
 
-        document.getElementById("temp").innerHTML =
-        data.main.temp;
-
-        document.getElementById("status").innerHTML =
-        data.weather[0].main;
-
-        document.getElementById("humidity").innerHTML =
-        data.main.humidity;
-
-        document.getElementById("wind").innerHTML =
-        data.wind.speed;
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-        alert("Something Went Wrong");
-
-    }
-
-}
-
-</script>
+<script src="weather.js"></script>
 
 </body>
+
 </html>

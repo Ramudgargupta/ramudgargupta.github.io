@@ -1,122 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Professional Age Calculator</title>
 
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, sans-serif;
-            background:linear-gradient(135deg,#6a11cb,#2575fc);
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .box{
-            background:white;
-            width:400px;
-            padding:30px;
-            border-radius:20px;
-            text-align:center;
-            box-shadow:0 0 25px rgba(0,0,0,0.3);
-        }
+<title>Professional Age Calculator | Ramudgar Gupta</title>
 
-        h1{
-            color:#333;
-            margin-bottom:20px;
-        }
+<link rel="stylesheet" href="age.css">
 
-        input{
-            width:90%;
-            padding:12px;
-            font-size:18px;
-            border-radius:8px;
-            border:1px solid #ccc;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-        button{
-            margin-top:20px;
-            padding:12px 25px;
-            font-size:18px;
-            background:#2575fc;
-            color:white;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-        }
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        button:hover{
-            background:#0d5be1;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        #result{
-            margin-top:25px;
-            font-size:22px;
-            font-weight:bold;
-            color:#222;
-            line-height:1.8;
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-    <h1>🎂 Professional Age Calculator</h1>
+<h1>🎂 Age Calculator</h1>
 
-    <p>Select Your Date of Birth</p>
+<p>Enter your Date of Birth</p>
 
-    <input type="date" id="dob">
+<input type="date" id="dob">
 
-    <br>
+<button onclick="calculateAge()">
+Calculate Age
+</button>
 
-    <button onclick="calculateAge()">Calculate Age</button>
+<div id="result">
 
-    <div id="result"></div>
+Your age will appear here.
 
 </div>
 
-<script>
+</div>
 
-function calculateAge(){
-
-    let dob = document.getElementById("dob").value;
-
-    if(dob==""){
-        alert("Please select your Date of Birth");
-        return;
-    }
-
-    let birth = new Date(dob);
-    let today = new Date();
-
-    let years = today.getFullYear() - birth.getFullYear();
-    let months = today.getMonth() - birth.getMonth();
-    let days = today.getDate() - birth.getDate();
-
-    if(days < 0){
-        months--;
-
-        let lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-        days += lastMonth.getDate();
-    }
-
-    if(months < 0){
-        years--;
-        months += 12;
-    }
-
-    document.getElementById("result").innerHTML =
-        "🎉 Your Age<br><br>" +
-        "👤 Years : " + years + "<br>" +
-        "📅 Months : " + months + "<br>" +
-        "📆 Days : " + days;
-}
-
-</script>
+<script src="age.js"></script>
 
 </body>
+
 </html>

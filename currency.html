@@ -1,62 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Currency Converter</title>
 
-<style>
+<meta charset="UTF-8">
 
-body{
-    margin:0;
-    font-family:Arial;
-    background:linear-gradient(135deg,#36D1DC,#5B86E5);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.container{
-    width:400px;
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 0 20px gray;
-}
+<title>Currency Converter | Ramudgar Gupta</title>
 
-h1{
-    margin-bottom:20px;
-}
+<link rel="stylesheet" href="currency.css">
 
-input,select{
-    width:80%;
-    padding:10px;
-    margin:10px;
-    font-size:18px;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-button{
-    padding:10px 20px;
-    font-size:18px;
-    background:green;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-button:hover{
-    background:darkgreen;
-}
-
-#result{
-    margin-top:20px;
-    font-size:22px;
-    font-weight:bold;
-    color:blue;
-}
-
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
@@ -66,78 +25,76 @@ button:hover{
 
 <h1>💱 Currency Converter</h1>
 
-<input type="number" id="amount" placeholder="Enter Amount">
+<div class="input-group">
 
-<br>
+<label>Amount</label>
 
-<select id="from">
-    <option value="USD">USD</option>
-    <option value="INR">INR</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-    <option value="JPY">JPY</option>
+<input
+type="number"
+id="amount"
+value="1"
+min="1">
+
+</div>
+
+<div class="select-box">
+
+<div>
+
+<label>From</label>
+
+<select id="fromCurrency">
+
+<option value="USD">USD</option>
+<option value="INR">INR</option>
+<option value="EUR">EUR</option>
+<option value="GBP">GBP</option>
+<option value="JPY">JPY</option>
+
 </select>
 
-<br>
+</div>
 
-<select id="to">
-    <option value="INR">INR</option>
-    <option value="USD">USD</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-    <option value="JPY">JPY</option>
+<button id="swapBtn">⇄</button>
+
+<div>
+
+<label>To</label>
+
+<select id="toCurrency">
+
+<option value="INR">INR</option>
+<option value="USD">USD</option>
+<option value="EUR">EUR</option>
+<option value="GBP">GBP</option>
+<option value="JPY">JPY</option>
+
 </select>
 
-<br>
-
-<button onclick="convertCurrency()">Convert</button>
-
-<div id="result">
-Result : --
 </div>
 
 </div>
 
-<script>
+<button id="convertBtn">
 
-async function convertCurrency(){
+Convert Currency
 
-    let amount = document.getElementById("amount").value;
-    let from = document.getElementById("from").value;
-    let to = document.getElementById("to").value;
+</button>
 
-    if(amount==""){
-        alert("Please Enter Amount");
-        return;
-    }
+<div class="result">
 
-    let url = "https://open.er-api.com/v6/latest/" + from;
+<h2 id="result">
 
-    try{
+Result will appear here
 
-        let response = await fetch(url);
+</h2>
 
-        let data = await response.json();
+</div>
 
-        let rate = data.rates[to];
+</div>
 
-        let result = amount * rate;
-
-        document.getElementById("result").innerHTML =
-        amount + " " + from + " = " +
-        result.toFixed(2) + " " + to;
-
-    }
-
-    catch(error){
-
-        alert("Internet Connection Error");
-
-    }
-
-}
-
-</script>
+<script src="currency.js"></script>
 
 </body>
+
 </html>

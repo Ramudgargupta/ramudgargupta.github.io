@@ -1,71 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Tic Tac Toe</title>
 
-<style>
+<meta charset="UTF-8">
 
-body{
-    margin:0;
-    font-family:Arial;
-    background:linear-gradient(135deg,#667eea,#764ba2);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.container{
-    text-align:center;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 0 20px black;
-}
+<title>Tic Tac Toe | Ramudgar Gupta</title>
 
-.board{
-    display:grid;
-    grid-template-columns:repeat(3,100px);
-    gap:10px;
-    justify-content:center;
-    margin:20px 0;
-}
+<link rel="stylesheet" href="tic.css">
 
-.cell{
-    width:100px;
-    height:100px;
-    font-size:40px;
-    font-weight:bold;
-    cursor:pointer;
-    border:none;
-    background:#f2f2f2;
-    border-radius:10px;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-.cell:hover{
-    background:#ddd;
-}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-#status{
-    font-size:22px;
-    font-weight:bold;
-    margin:15px;
-}
-
-button{
-    padding:10px 20px;
-    font-size:18px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-#restart{
-    background:green;
-    color:white;
-}
-
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
@@ -73,126 +23,40 @@ button{
 
 <div class="container">
 
-<h1>❌⭕ Tic Tac Toe</h1>
+<h1>⭕ Tic Tac Toe ❌</h1>
 
-<div id="status">Player X Turn</div>
+<h2 id="status">
+
+Player X Turn
+
+</h2>
 
 <div class="board">
 
-<button class="cell" onclick="play(this,0)"></button>
-<button class="cell" onclick="play(this,1)"></button>
-<button class="cell" onclick="play(this,2)"></button>
+<button class="cell"></button>
+<button class="cell"></button>
+<button class="cell"></button>
 
-<button class="cell" onclick="play(this,3)"></button>
-<button class="cell" onclick="play(this,4)"></button>
-<button class="cell" onclick="play(this,5)"></button>
+<button class="cell"></button>
+<button class="cell"></button>
+<button class="cell"></button>
 
-<button class="cell" onclick="play(this,6)"></button>
-<button class="cell" onclick="play(this,7)"></button>
-<button class="cell" onclick="play(this,8)"></button>
-
-</div>
-
-<button id="restart" onclick="restartGame()">🔄 Restart</button>
+<button class="cell"></button>
+<button class="cell"></button>
+<button class="cell"></button>
 
 </div>
 
-<script>
+<button id="restartBtn">
 
-let board=["","","","","","","","",""];
-let currentPlayer="X";
-let gameOver=false;
+🔄 Restart Game
 
-const winPatterns=[
-[0,1,2],
-[3,4,5],
-[6,7,8],
-[0,3,6],
-[1,4,7],
-[2,5,8],
-[0,4,8],
-[2,4,6]
-];
+</button>
 
-function play(cell,index){
+</div>
 
-if(board[index]!="" || gameOver){
-return;
-}
-
-board[index]=currentPlayer;
-cell.innerHTML=currentPlayer;
-
-checkWinner();
-
-if(!gameOver){
-
-currentPlayer=currentPlayer=="X"?"O":"X";
-
-document.getElementById("status").innerHTML=
-"Player "+currentPlayer+" Turn";
-
-}
-
-}
-
-function checkWinner(){
-
-for(let pattern of winPatterns){
-
-let a=pattern[0];
-let b=pattern[1];
-let c=pattern[2];
-
-if(
-board[a]!="" &&
-board[a]==board[b] &&
-board[b]==board[c]
-){
-
-document.getElementById("status").innerHTML=
-"🎉 Player "+currentPlayer+" Wins!";
-
-gameOver=true;
-return;
-
-}
-
-}
-
-if(!board.includes("")){
-
-document.getElementById("status").innerHTML=
-"🤝 Match Draw";
-
-gameOver=true;
-
-}
-
-}
-
-function restartGame(){
-
-board=["","","","","","","","",""];
-
-currentPlayer="X";
-
-gameOver=false;
-
-document.getElementById("status").innerHTML=
-"Player X Turn";
-
-let cells=document.getElementsByClassName("cell");
-
-for(let i=0;i<cells.length;i++){
-
-cells[i].innerHTML="";
-
-}
-
-}
-
-</script>
+<script src="tic.js"></script>
 
 </body>
+
 </html>

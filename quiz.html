@@ -1,86 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Quiz App</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#667eea,#764ba2)}
-.container{background:#fff;width:550px;padding:30px;border-radius:15px;text-align:center;box-shadow:0 0 20px rgba(0,0,0,.3)}
-#timer,#progress{margin:10px;font-size:22px}
-#question{font-size:24px;margin:20px 0;min-height:60px}
-.option{display:block;width:100%;padding:12px;margin:8px 0;font-size:18px;border:none;border-radius:8px;cursor:pointer;background:#f1f1f1}
-#next{margin-top:15px;padding:12px 25px;background:green;color:#fff;border:none;border-radius:8px;cursor:pointer}
-</style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Professional Quiz App | Ramudgar Gupta</title>
+
+    <link rel="stylesheet" href="quiz.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
+
 <div class="container">
-<h1>🧠 Professional Quiz</h1>
-<div id="timer">Time : 30</div>
-<div id="progress"></div>
-<div id="question"></div>
-<button class="option"></button>
-<button class="option"></button>
-<button class="option"></button>
-<button class="option"></button>
-<button id="next">Next</button>
+
+    <h1>🧠 Professional Quiz App</h1>
+
+    <!-- Progress -->
+
+    <div class="progress-container">
+
+        <div id="progressBar"></div>
+
+    </div>
+
+    <!-- Timer -->
+
+    <div class="top-info">
+
+        <div class="timer">
+            ⏳ Time :
+            <span id="time">60</span>s
+        </div>
+
+        <div class="question-count">
+            Question
+            <span id="questionNo">1</span>/10
+        </div>
+
+    </div>
+
+    <!-- Quiz Box -->
+
+    <div id="quizBox">
+
+        <h2 id="question">
+            Loading Question...
+        </h2>
+
+        <div id="answerButtons">
+
+        </div>
+
+        <div class="buttons">
+
+            <button id="prevBtn">
+                ⬅ Previous
+            </button>
+
+            <button id="nextBtn">
+                Next ➜
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Result -->
+
+    <div id="resultBox" class="hide">
+
+        <h2>🎉 Quiz Finished</h2>
+
+        <h3 id="scoreText"></h3>
+
+        <h4 id="percentage"></h4>
+
+        <h4 id="highScore"></h4>
+
+        <button id="restartBtn">
+            🔄 Restart Quiz
+        </button>
+
+    </div>
+
 </div>
-<script>
-const allQuestions=[
-{question:"CPU stands for?",options:["Central Processing Unit","Computer Processing Unit","Central Program Unit","Control Processing Unit"],answer:"Central Processing Unit"},
-{question:"RAM stands for?",options:["Random Access Memory","Read Access Memory","Run Access Memory","Random Application Memory"],answer:"Random Access Memory"},
-{question:"HTML is used for?",options:["Web Pages","Database","OS","Games"],answer:"Web Pages"},
-{question:"CSS is used for?",options:["Styling","Database","OS","Python"],answer:"Styling"},
-{question:"JavaScript is used for?",options:["Programming Logic","Database","OS","Typing"],answer:"Programming Logic"},
-{question:"Image tag?",options:["<img>","<image>","<src>","<photo>"],answer:"<img>"},
-{question:"Hyperlink tag?",options:["<a>","<p>","<div>","<img>"],answer:"<a>"}
-];
-const quiz=[...allQuestions].sort(()=>Math.random()-0.5).slice(0,5);
-let current=0,score=0,time=30,timer;
-const q=document.getElementById("question");
-const opts=document.querySelectorAll(".option");
-function startTimer(){
-clearInterval(timer);time=30;
-document.getElementById("timer").textContent="Time : "+time;
-timer=setInterval(()=>{
-time--;
-document.getElementById("timer").textContent="Time : "+time;
-if(time<=0){clearInterval(timer);nextQuestion();}
-},1000);
-}
-function loadQuestion(){
-document.getElementById("progress").textContent=`Question ${current+1} / ${quiz.length}`;
-q.textContent=quiz[current].question;
-opts.forEach((b,i)=>{
-b.textContent=quiz[current].options[i];
-b.disabled=false;
-b.style.background="#f1f1f1";
-});
-startTimer();
-}
-opts.forEach(btn=>{
-btn.onclick=()=>{
-if(btn.disabled)return;
-opts.forEach(b=>b.disabled=true);
-const correct=quiz[current].answer;
-opts.forEach(b=>{if(b.textContent===correct)b.style.background="lightgreen";});
-if(btn.textContent===correct)score++;
-else btn.style.background="tomato";
-};
-});
-function nextQuestion(){
-clearInterval(timer);
-current++;
-if(current<quiz.length){loadQuestion();}
-else{
-const per=Math.round(score/quiz.length*100);
-const res=per>=50?"PASS ✅":"FAIL ❌";
-document.querySelector(".container").innerHTML=`<h1>Quiz Finished</h1><h2>Score: ${score}/${quiz.length}</h2><h2>${per}%</h2><h2>${res}</h2><br><button onclick="location.reload()">Restart</button>`;
-}
-}
-document.getElementById("next").onclick=nextQuestion;
-loadQuestion();
-</script>
+
+<script src="quiz.js"></script>
+
 </body>
+
 </html>

@@ -1,57 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>My Calculator</title>
 
-    <style>
-        body{
-            background-color: lightblue;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .calculator{
-            background-color: #1e3a8a;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px gray;
-            text-align: center;
-        }
+<title>Professional Calculator | Ramudgar Gupta</title>
 
-        h2{
-            color: white;
-        }
+<link rel="stylesheet" href="calculator.css">
 
-        input{
-            width: 270px;
-            height: 50px;
-            font-size: 25px;
-            text-align: right;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: none;
-            padding-right: 10px;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-        button{
-            width: 60px;
-            height: 60px;
-            font-size: 22px;
-            margin: 5px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            background-color: white;
-        }
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        button:hover{
-            background-color: orange;
-            color: white;
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
@@ -63,66 +26,38 @@
 
 <input type="text" id="display" readonly>
 
-<br>
+<div class="buttons">
+
+<button class="operator" onclick="clearDisplay()">AC</button>
+<button class="operator" onclick="deleteLast()">DEL</button>
+<button class="operator" onclick="add('%')">%</button>
+<button class="operator" onclick="add('/')">÷</button>
 
 <button onclick="add('7')">7</button>
 <button onclick="add('8')">8</button>
 <button onclick="add('9')">9</button>
-<button onclick="add('/')">÷</button>
-
-<br>
+<button class="operator" onclick="add('*')">×</button>
 
 <button onclick="add('4')">4</button>
 <button onclick="add('5')">5</button>
 <button onclick="add('6')">6</button>
-<button onclick="add('*')">×</button>
-
-<br>
+<button class="operator" onclick="add('-')">−</button>
 
 <button onclick="add('1')">1</button>
 <button onclick="add('2')">2</button>
 <button onclick="add('3')">3</button>
-<button onclick="add('-')">−</button>
+<button class="operator" onclick="add('+')">+</button>
 
-<br>
-
-<button onclick="clearDisplay()">C</button>
 <button onclick="add('0')">0</button>
 <button onclick="add('.')">.</button>
-<button onclick="deleteLast()">⌫</button>
 
-<br>
+<button class="equal" onclick="answer()">=</button>
 
-<button onclick="add('+')">+</button>
-<button style="width:195px;background-color:green;color:white;" onclick="answer()">=</button>
 </div>
 
-<script>
+</div>
 
-let display = document.getElementById("display");
-
-function add(value){
-    display.value += value;
-}
-
-function answer(){
-    try{
-        display.value = eval(display.value);
-    }
-    catch{
-        display.value = "Error";
-    }
-}
-
-function clearDisplay(){
-    display.value = "";
-}
-
-function deleteLast(){
-    display.value = display.value.slice(0,-1);
-}
-
-</script>
+<script src="calculator.js"></script>
 
 </body>
 </html>

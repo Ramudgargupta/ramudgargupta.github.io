@@ -1,168 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Movie Search App</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #141E30, #243B55);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
 
-        .container {
-            width: 450px;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 0 20px black;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        h1 {
-            color: #333;
-        }
+<title>Movie Search App | Ramudgar Gupta</title>
 
-        input {
-            width: 230px;
-            padding: 10px;
-            font-size: 18px;
-            border: 1px solid gray;
-            border-radius: 5px;
-        }
+<link rel="stylesheet" href="movie.css">
 
-        .searchBtn {
-            padding: 10px 20px;
-            font-size: 18px;
-            background: green;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-        .searchBtn:hover {
-            background: darkgreen;
-        }
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        img {
-            width: 220px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        #result {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .trailerBtn {
-            background: red;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .trailerBtn:hover {
-            background: darkred;
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1>🎬 Movie Search App</h1>
+<h1>🎬 Movie Search</h1>
 
-        <input type="text" id="movie" placeholder="Enter Movie Name">
+<div class="search-box">
 
-        <button class="searchBtn" onclick="searchMovie()">Search</button>
+<input
+type="text"
+id="movieInput"
+placeholder="Enter Movie Name">
 
-        <div id="result"></div>
+<button onclick="searchMovie()">
 
-    </div>
+Search
 
-    <script>
+</button>
 
-        const apiKey = "8487f5e2";
+</div>
 
-        async function searchMovie() {
+<div id="movieResult" class="movie-card">
 
-            let movie = document.getElementById("movie").value.trim();
+<p>Search a movie to see details.</p>
 
-            if (movie == "") {
-                alert("Please Enter Movie Name");
-                return;
-            }
+</div>
 
-            let url = "https://www.omdbapi.com/?apikey=" + apiKey + "&t=" + movie;
+</div>
 
-            try {
-
-                let response = await fetch(url);
-
-                let data = await response.json();
-
-                if (data.Response == "False") {
-                    alert("Movie Not Found");
-                    return;
-                }
-
-                document.getElementById("result").innerHTML =
-
-                    "<img src='" + data.Poster + "'><br><br>" +
-
-                    "<h2>" + data.Title + "</h2>" +
-
-                    "<p><b>⭐ IMDb Rating:</b> " + data.imdbRating + "</p>" +
-
-                    "<p><b>📅 Released:</b> " + data.Released + "</p>" +
-
-                    "<p><b>🎭 Genre:</b> " + data.Genre + "</p>" +
-
-                    "<p><b>🎬 Director:</b> " + data.Director + "</p>" +
-
-                    "<p><b>🎭 Actors:</b> " + data.Actors + "</p>" +
-
-                    "<p><b>⏱ Runtime:</b> " + data.Runtime + "</p>" +
-
-                    "<p><b>🌍 Language:</b> " + data.Language + "</p>" +
-
-                    "<p><b>🏆 Awards:</b> " + data.Awards + "</p>" +
-
-                    "<p><b>📝 Plot:</b> " + data.Plot + "</p><br>" +
-
-                    "<button class='trailerBtn' onclick=\"watchTrailer('" + data.Title + "')\">▶ Watch Trailer</button>";
-
-            }
-
-            catch (error) {
-
-                alert("Something Went Wrong");
-
-            }
-
-        }
-
-        function watchTrailer(movieName) {
-
-            let url = "https://www.youtube.com/results?search_query=" + movieName + "+Official+Trailer";
-
-            window.open(url, "_blank");
-
-        }
-
-    </script>
+<script src="movie.js"></script>
 
 </body>
 
