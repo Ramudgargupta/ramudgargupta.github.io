@@ -12,3 +12,26 @@ const supabase = window.supabase.createClient(
 );
 
 console.log("✅ Supabase Connected");
+// ===============================
+// TEST DATABASE CONNECTION
+// ===============================
+
+async function testDatabase() {
+
+    const { data, error } = await supabase
+        .from("ratings")
+        .select("*");
+
+    if (error) {
+        console.error("❌ Database Error:", error);
+        alert("Database Error! Check Console.");
+        return;
+    }
+
+    console.log("✅ Database Connected", data);
+
+    alert("Database Connected Successfully!\nTotal Ratings: " + data.length);
+
+}
+
+testDatabase();
