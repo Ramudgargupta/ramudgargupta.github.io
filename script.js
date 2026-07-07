@@ -283,3 +283,92 @@ window.addEventListener("scroll", () => {
     });
 
 });
+const supabaseUrl = "https://puazbdmudwwvxeloirvu.supabase.co";
+
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1YXpiZG11ZHd3dnhlbG9pcnZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzODQxODQsImV4cCI6MjA5ODk2MDE4NH0.67uiJ3OKpSU3Xy1d0ckDtw_c9EpitjAGzeXEVTrB1cg";
+
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+// ===============================
+// STAR RATING WITH SUPABASE
+// ===============================
+
+const stars = document.querySelectorAll(".star");
+const avg = document.getElementById("averageRating");
+const total = document.getElementById("totalVotes");
+
+let selectedRating = 0;
+
+// Show selected stars
+stars.forEach(star => {
+    star.addEventListener("click", async () => {
+
+        // Prevent multiple votes from same browser
+        if (localStorage.getItem("portfolioRated")) {
+            alert("⭐ You have already rated this portfolio.");
+            return;
+        }
+
+        selectedRating = Number(star.dataset.rating);
+
+        stars.forEach(s => {
+            if (Number(s.dataset.rating) <= selectedRating) {
+                s.style.color = "gold";
+            } else {
+                s.style.color = "#ccc";
+            }
+        });
+
+        const { error } = await supabase
+            .from("ratings")
+            .insert([
+                {
+                    rating: selectedRating
+                }
+            ]);
+
+        if (!error) {
+
+            localStorage.setItem("portfolioRated", "yes");
+
+            alert("🎉 Thank you for your rating!");
+
+            loadRatings();
+
+        } else {
+
+            console.log(error);
+            alert("Rating save failed.");
+
+        }
+
+    });
+});
+
+async function loadRatings() {
+
+    const { data, error } = await supabase
+        .from("ratings")
+        .select("rating");
+
+    if (error) {
+        console.log(error);
+        return;
+    }
+
+    if (data.length === 0) {
+        avg.textContent = "0.0";
+        total.textContent = "0";
+        return;
+    }
+
+    let sum = 0;
+
+    data.forEach(item => {
+        sum += item.rating;
+    });
+
+    avg.textContent = (sum / data.length).toFixed(1);
+    total.textContent = data.length;
+}
+
+loadRatings();
