@@ -1,6 +1,7 @@
 // ===============================
 // SUPABASE CONNECT
 // ===============================
+alert("rating.js loaded");
 alert("rating.js version 2");
 const supabaseUrl = "https://puazbdmudwwvxeloirvu.supabase.co";
 
